@@ -1,0 +1,30 @@
+version: "3.3"
+
+services:
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile.dev
+    networks:
+      - internal
+    ports:
+      - 4000:4000
+    volumes:
+      - "./auth-service:/usr/src/app"
+    environment:
+      - NODE_ENV=development
+      - DB_PORT=27017
+      - DB_HOST=users-db
+      - DB_NAME=csgoed
+      - PORT=4000
+
+  users-db:
+    logging:
+      driver: none
+    image: "bitnami/mongodb:4.2-debian-10"
+    networks:
+      - internal
+
+networks:
+  internal:
+    external: false
