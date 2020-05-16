@@ -4,6 +4,7 @@ ARG NODE_ENV
 ARG DB_PORT
 ARG DB_HOST
 ARG DB_NAME
+ARG PORT
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
