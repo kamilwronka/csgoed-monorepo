@@ -1,0 +1,16 @@
+
+FROM node:14.1.0-alpine
+
+ARG NODE_ENV
+ARG DB_PORT
+ARG DB_HOST
+ARG DB_NAME
+ARG PORT
+
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+RUN yarn
+COPY . ./
+RUN yarn build
+
+ENTRYPOINT [ "yarn", "start:prod" ]
