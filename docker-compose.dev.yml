@@ -1,6 +1,11 @@
 version: "3.3"
 
 services:
+  redis:
+    image: redis:6.0.2
+    networks:
+      - internal
+
   auth-service:
     build:
       context: ./auth-service
@@ -11,12 +16,15 @@ services:
       - 4000:4000
     volumes:
       - "./auth-service:/usr/src/app"
+      # - "/usr/src/app/node_modules"
     environment:
       - NODE_ENV=development
       - DB_PORT=27017
       - DB_HOST=users-db
       - DB_NAME=csgoed
       - PORT=4000
+      - REDIS_PORT=6379
+      - REDIS_HOST=redis
 
   users-db:
     logging:

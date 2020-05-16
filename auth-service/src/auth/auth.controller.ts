@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Request,
+  UseGuards,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignUpUserDto } from './dto/signup-user.dto';
 import { SignInUserDto } from './dto/signin-user.dto';
@@ -12,9 +20,11 @@ export class AuthController {
     private usersService: UsersService,
   ) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('signup')
   async signUp(@Body() body: SignUpUserDto) {
-    return this.usersService.create(body);
+    const user = await this.usersService.create(body);
+    return this.authService.login(user);
   }
 
   @UseGuards(LocalAuthGuard)

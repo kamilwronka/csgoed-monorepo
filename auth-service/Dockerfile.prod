@@ -1,5 +1,4 @@
-
-FROM node:14.1.0-alpine
+FROM node:12.16.3
 
 ARG NODE_ENV
 ARG DB_PORT

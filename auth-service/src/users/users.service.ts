@@ -1,5 +1,9 @@
 import { Model } from 'mongoose';
-import { Injectable, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 
@@ -22,7 +26,7 @@ export class UsersService {
     try {
       return await createdUser.save();
     } catch (error) {
-      throw new BadRequestException(error);
+      throw new UnprocessableEntityException(error);
     }
   }
 }
