@@ -7,11 +7,11 @@ ARG DB_NAME
 ARG PORT
 ARG REDIS_PORT
 ARG REDIS_HOST
+ARG JWT_SECRET
+ARG REFRESH_SECRET
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
-
-COPY . ./
 
 ENTRYPOINT [ "yarn", "start:dev" ]

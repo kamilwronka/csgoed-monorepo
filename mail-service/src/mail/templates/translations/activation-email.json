@@ -1,0 +1,12 @@
+{
+  "en": {
+    "title": "Account activation",
+    "helper": "Activate the account by clicking the button below.",
+    "activateButton": "Activate your account"
+  },
+  "pl": {
+    "title": "Aktywacja konta",
+    "helperText": "Aktywuj konto klikając przycisk poniżej.",
+    "activateButton": "Aktywuj konto"
+  }
+}

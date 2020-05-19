@@ -1,0 +1,16 @@
+{
+  "en": {
+    "title": "Security alert",
+    "headerText": "New device login",
+    "mainText": "You have just logged into your csgoed.com account from a new device",
+    "description": "We've sent this email to make sure it's you.",
+    "checkActivityButton": "Check activity"
+  },
+  "pl": {
+    "title": "Alert bezpieczeństwa",
+    "headerText": "Logowanie na konto csgoed.com z nowego urządzenia.",
+    "mainText": "Przed chwilą zalogowano się na Twoje konto csgoed.com z nowego urządzenia",
+    "description": "Wysłaliśmy tego e-maila, by upewnić się, że to Ty.",
+    "checkActivityButton": "Sprawdź aktywność"
+  }
+}

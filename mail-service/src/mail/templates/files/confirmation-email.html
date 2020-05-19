@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: #f0f0f0;
+      }
+
+      body,
+      table {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .btn {
+        height: 44px;
+        padding: 10px 44px 10px 44px;
+        background-color: #001529;
+        text-decoration: none;
+        color: #ffffff;
+        margin-top: 48px;
+      }
+
+      .card {
+        background-color: #fff;
+        padding: 0;
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <table class="card" width="768">
+        <tr>
+          <td width="768">
+            <center><strong>{{ greetingHeader }}</strong></center>
+          </td>
+        </tr>
+        <tr>
+          <td width="768">
+            <center>
+              <p>{{ greeting }} {{ name }}. {{ thankYouText }}</p>
+            </center>
+          </td>
+        </tr>
+        <tr>
+          <td width="768" height="150">
+            <center>
+              <a class="btn" href="{{{ activationLink }}}"
+                >{{ activateButton }}</a
+              >
+            </center>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

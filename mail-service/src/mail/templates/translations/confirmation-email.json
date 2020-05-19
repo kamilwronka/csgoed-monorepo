@@ -1,0 +1,16 @@
+{
+  "en": {
+    "title": "Confirmation email",
+    "greeting": "Hello",
+    "thankYouText": "Thank you for registering at csgoed.com. The only thing you need to do to create your own game servers is account activation. Activate the account by clicking the button below.",
+    "activateButton": "Activate your account",
+    "greetingHeader": "Welcome to csgoed.com"
+  },
+  "pl": {
+    "title": "Potwierdzenie rejestracji",
+    "greeting": "Cześć",
+    "thankYouText": "Dziękujemy za rejestrację na csgoed.com. Jedyna rzecz, którą musisz jeszcze zrobić by zacząć tworzyć swoje własne serwery gier to aktywacja konta. Aktywuj konto klikając przycisk poniżej.",
+    "activateButton": "Aktywuj konto",
+    "greetingHeader": "Witaj na csgoed.com"
+  }
+}

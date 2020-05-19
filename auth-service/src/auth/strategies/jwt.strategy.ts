@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constants';
 import { AuthService } from '../auth.service';
 import { UserEntity } from 'src/users/entities/user.entity';
-import { serialize, plainToClass } from 'class-transformer';
+import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -18,7 +18,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
 
   async validate(payload: any) {
     const user = await this.authService.validateUserByJwt(payload.email);
-    // return new UserEntity(user.toJSON());
     return plainToClass(UserEntity, user.toJSON());
   }
 }

@@ -1,13 +1,13 @@
 import { BadRequestException } from '@nestjs/common';
 
-export const DB_HOST = process.env.DB_HOST;
-export const DB_PORT = process.env.DB_PORT;
-export const DB_NAME = process.env.DB_NAME;
+export const DB_HOST = process.env.AUTH_SERVICE_DB_HOST;
+export const DB_PORT = process.env.AUTH_SERVICE_DB_PORT;
+export const DB_NAME = process.env.AUTH_SERVICE_DB_NAME;
 export const REDIS_HOST = process.env.REDIS_HOST;
 export const REDIS_PORT = process.env.REDIS_PORT;
 
-const prod = process.env.NODE_ENV === 'production';
-const DEV_WHITELIST = ['http://localhost:3000'];
+export const prod = process.env.NODE_ENV === 'production';
+const DEV_WHITELIST = ['http://localhost:3000', 'http://192.168.8.130:3000'];
 const PROD_WHITELIST = ['https://dashboard.csgoed.com'];
 
 export const CORS_OPTIONS = {

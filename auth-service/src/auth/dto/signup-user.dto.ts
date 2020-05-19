@@ -13,4 +13,10 @@ export class SignUpUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  fingerprint: string;
+
+  @IsNotEmpty()
+  language: string;
 }

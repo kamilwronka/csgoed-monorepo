@@ -13,6 +13,8 @@ export class UserEntity {
   updatedAt: string;
   @Exclude()
   __v: number;
+  @Exclude()
+  activationKey: string;
 
   constructor(partial: Partial<UserEntity>) {
     Object.assign(this, partial);

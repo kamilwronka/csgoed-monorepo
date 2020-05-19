@@ -10,6 +10,8 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "copy-templates": "cp -rv src/mail/templates/files dist/mail/templates",
+    "copy-translations": "cp -rv src/mail/templates/translations dist/mail/templates",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -23,7 +25,11 @@
   "dependencies": {
     "@nestjs/common": "^7.0.0",
     "@nestjs/core": "^7.0.0",
+    "@nestjs/microservices": "^7.0.13",
     "@nestjs/platform-express": "^7.0.0",
+    "handlebars": "^4.7.6",
+    "mailgun-js": "^0.22.0",
+    "redis": "^3.0.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.5.4"

@@ -1,24 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { jwtConstants } from './constants';
+import { sign, verify } from 'jsonwebtoken';
+import * as uuid from 'uuid';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
-  ) {}
+  constructor(private usersService: UsersService) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(email);
-    const result = await bcrypt.compare(password, user.password);
 
-    if (result) {
-      return user;
+    if (!user) {
+      throw new UnauthorizedException();
     }
-    return null;
+
+    const result = await bcrypt.compare(password, user.password);
+    return result ? user : null;
   }
 
   async validateUserByJwt(email: string): Promise<any> {
@@ -35,8 +34,30 @@ export class AuthService {
     const payload = { email: user.email, sub: user._id };
 
     return {
-      access_token: this.jwtService.sign(payload),
+      accessToken: sign(payload, jwtConstants.secret, {
+        expiresIn: jwtConstants.expiresIn,
+      }),
+      refreshToken: sign(payload, jwtConstants.refreshSecret, {
+        expiresIn: jwtConstants.refreshExpiresIn,
+      }),
       expires: jwtConstants.expiresIn,
+      refreshExpires: jwtConstants.refreshExpiresIn,
+      refreshTokenUuid: uuid.v4(),
+      accessTokenUuid: uuid.v4(),
     };
+  }
+
+  async refreshToken(bearerToken: string) {
+    const token = bearerToken.replace('Bearer ', '');
+
+    try {
+      const payload = verify(token, jwtConstants.refreshSecret, {
+        ignoreExpiration: false,
+      });
+
+      return this.login({ email: payload['email'], _id: payload['sub'] });
+    } catch (error) {
+      throw new UnauthorizedException();
+    }
   }
 }

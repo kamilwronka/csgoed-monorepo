@@ -7,4 +7,7 @@ export class SignInUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  fingerprint: string;
 }
