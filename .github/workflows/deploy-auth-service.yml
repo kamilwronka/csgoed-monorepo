@@ -21,6 +21,7 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: $KUBECONTEXT
+          context: kubernetes-admin@test
         id: setcontext
         env:
           KUBECONTEXT: ${{ secrets.KUBECONTEXT }}
