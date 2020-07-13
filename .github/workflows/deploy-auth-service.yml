@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: ls $HOME
+      - run: ls
       # - run: cd auth-service && docker build -f Dockerfile.prod -t kamilwronka7/auth-service .
       # - run: docker login -u $DOCKER_ID -p $DOCKER_PASS
       #   env:
