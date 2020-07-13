@@ -21,6 +21,6 @@ jobs:
       #     DOCKER_ID: ${{ secrets.DOCKER_ID }}
       #     DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       # - run: docker push kamilwronka7/auth-service
-      - run: mkdir -p /home/deploy
+      - run: sudo mkdir -p /home/deploy
       - run: echo $KUBE_CONFIG_DATA | base64 -d > $KUBECONFIG
       - run: kubectl get all
