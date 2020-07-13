@@ -2,6 +2,7 @@ name: deploy-auth-service
 
 env:
   KUBECONFIG: /etc/deploy/config
+  KUBE_CONFIG_DATA: ${{ KUBE_CONFIG_DATA }}
 
 on:
   push:
@@ -21,7 +22,5 @@ jobs:
       #     DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       # - run: docker push kamilwronka7/auth-service
       - run: mkdir -p /etc/deploy
-      - run: echo $KUBE_CONFIG_DATA | base64 -d > ${KUBECONFIG}
-        env:
-          KUBE_CONFIG_DATA: ${{ KUBE_CONFIG_DATA }}
+      - run: echo $KUBE_CONFIG_DATA | base64 -d > $KUBECONFIG
       - run: kubectl get all
