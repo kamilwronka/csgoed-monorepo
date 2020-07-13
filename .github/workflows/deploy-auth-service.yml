@@ -18,11 +18,10 @@ jobs:
       #     DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       # - run: docker push kamilwronka7/auth-service
       - uses: azure/k8s-set-context@v1
+        env:
+          KUBECONTEXT: ${{ secrets.KUBECONTEXT }}
         with:
           method: kubeconfig
           kubeconfig: $KUBECONTEXT
-          context: kubernetes-admin@test
         id: setcontext
-        env:
-          KUBECONTEXT: ${{ secrets.KUBECONTEXT }}
       - run: kubectl get all
