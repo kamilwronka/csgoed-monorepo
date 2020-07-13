@@ -1,0 +1,20 @@
+FROM node:12.16.3
+
+ENV NODE_ENV=production
+ENV DB_PORT=27017
+ENV DB_HOST=localhost
+ENV DB_NAME=default
+ENV PORT=80
+ENV REDIS_PORT=6379
+ENV REDIS_HOST=localhost
+ENV JWT_SECRET=changeme
+ENV REFRESH_SECRET=changeme
+
+WORKDIR /usr/src/app
+COPY package.json yarn.lock ./
+RUN yarn
+RUN yarn build
+
+EXPOSE 80
+
+ENTRYPOINT [ "yarn", "start" ]
