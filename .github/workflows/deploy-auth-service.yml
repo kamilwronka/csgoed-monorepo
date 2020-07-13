@@ -19,9 +19,9 @@ jobs:
       # - run: docker push kamilwronka7/auth-service
       - uses: azure/k8s-set-context@v1
         env:
-          KUBECONTEXT: ${{ secrets.KUBECONTEXT }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           method: kubeconfig
-          kubeconfig: $KUBECONTEXT
+          kubeconfig: $KUBE_CONFIG_DATA
         id: setcontext
       - run: kubectl get all
