@@ -23,5 +23,5 @@ jobs:
           kubeconfig: $KUBECONTEXT
         id: setcontext
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBECONTEXT }}
+          KUBECONTEXT: ${{ secrets.KUBECONTEXT }}
       - run: kubectl get all
