@@ -22,4 +22,6 @@ jobs:
       # - run: docker push kamilwronka7/auth-service
       - run: mkdir -p /etc/deploy
       - run: echo $KUBE_CONFIG_DATA | base64 -d > ${KUBECONFIG}
+        env:
+          KUBE_CONFIG_DATA: ${{ KUBE_CONFIG_DATA }}
       - run: kubectl get all
