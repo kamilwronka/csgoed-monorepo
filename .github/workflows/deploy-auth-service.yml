@@ -17,3 +17,5 @@ jobs:
           DOCKER_ID: ${{ secrets.DOCKER_ID }}
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       - run: docker push kamilwronka7/auth-service
+      - run: echo $KUBECONTEXT > $HOME/.kube/config
+      - run: kubectl config use-context kubernetes-admin@test
