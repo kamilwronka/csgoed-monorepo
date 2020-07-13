@@ -2,6 +2,7 @@ import validator from 'validator';
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { AuthHistory } from './auth-history.schema';
+import { ActivationData } from './activation-data.schema';
 
 @Schema({ timestamps: true })
 export class User extends Document {
@@ -14,11 +15,8 @@ export class User extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true, default: false })
-  activated: boolean;
-
   @Prop({ required: true })
-  activationKey: string;
+  activationData: ActivationData;
 
   @Prop({ required: true, validate: validator.isEmail, unique: true })
   email: string;
