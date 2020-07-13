@@ -25,3 +25,4 @@ jobs:
           kubeconfig: $KUBECONTEXT
         id: setcontext
       - run: echo $KUBECONTEXT
+      - run: kubectl get all
