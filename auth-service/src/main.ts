@@ -12,6 +12,6 @@ async function bootstrap() {
   app.use(helmet());
 
   // app.enableCors({ ...CORS_OPTIONS });
-  await app.listen(process.env.AUTH_SERVICE_PORT);
+  await app.listen(process.env.PORT);
 }
 bootstrap();
