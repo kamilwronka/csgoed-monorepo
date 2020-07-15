@@ -23,4 +23,4 @@ jobs:
       - run: docker push kamilwronka7/mail-service
       - run: sudo mkdir -p /home/deploy
       - run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $KUBECONFIG
-      - run: kubectl rollout restart deployment mail-depl
+    #   - run: kubectl rollout restart deployment mail-depl
