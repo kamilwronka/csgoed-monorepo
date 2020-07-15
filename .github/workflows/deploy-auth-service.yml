@@ -28,5 +28,6 @@ jobs:
           fileName: 'config'
           encodedString: ${{ secrets.KUBE_CONFIG_DATA }}
       - uses: actions/checkout@v2
+      - run: echo ${{ steps.write_file.outputs }}
       - run: cp ${{ steps.write_file.outputs.filePath }} /home/deploy
       - run: kubectl get all
