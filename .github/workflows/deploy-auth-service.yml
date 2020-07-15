@@ -22,6 +22,11 @@ jobs:
       #     DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       # - run: docker push kamilwronka7/auth-service
       - run: sudo mkdir -p /home/deploy
-      - run: echo "{$KUBE_CONFIG_DATA}"
-      - run: echo "{$KUBE_CONFIG_DATA}" | base64 -d > $KUBECONFIG
+      - uses: timheuer/base64-to-file@v1
+        id: write_file
+        with:
+          fileName: 'config'
+          encodedString: ${{ secrets.KUBE_CONFIG_DATA }}
+      - uses: actions/checkout@v2
+      - run: sudo cp ${{ steps.write_file.outputs.filePath }} /home/deploy
       - run: kubectl get all
