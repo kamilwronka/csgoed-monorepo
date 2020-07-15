@@ -32,7 +32,7 @@ spec:
                   name: auth-db-name
                   key: DB_NAME
             - name: PORT
-              value: 80
+              value: "80"
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
