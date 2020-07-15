@@ -8,8 +8,8 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - "auth-service/**"
+    paths:
+      - "auth-service/**"
 jobs:
   build:
     runs-on: ubuntu-latest
