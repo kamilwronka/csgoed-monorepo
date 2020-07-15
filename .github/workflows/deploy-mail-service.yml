@@ -1,4 +1,4 @@
-name: deploy-auth-service
+name: deploy-mail-service
 
 env:
   KUBECONFIG: /home/deploy/config
@@ -9,18 +9,18 @@ on:
     branches:
       - master
     # paths:
-    #   - "auth-service/**"
+    #   - "mail-service/**"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd auth-service && docker build -f Dockerfile.prod -t kamilwronka7/auth-service .
+      - run: cd mail-service && docker build -f Dockerfile.prod -t kamilwronka7/mail-service .
       - run: docker login -u $DOCKER_ID -p $DOCKER_PASS
         env:
           DOCKER_ID: ${{ secrets.DOCKER_ID }}
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-      - run: docker push kamilwronka7/auth-service
+      - run: docker push kamilwronka7/mail-service
       - run: sudo mkdir -p /home/deploy
       - run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $KUBECONFIG
-      - run: kubectl rollout restart deployment auth-depl
+      - run: kubectl rollout restart deployment mail-depl

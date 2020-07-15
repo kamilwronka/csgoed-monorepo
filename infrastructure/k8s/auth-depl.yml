@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: kamilwronka7/auth-service
+          env:
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-port
+                  key: DB_PORT
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-host
+                  key: DB_HOST
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: auth-db-name
+                  key: DB_NAME
+            - name: PORT
+              value: 80
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_SECRET
+            - name: REFRESH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: refresh-secret
+                  key: REFRESH_SECRET
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: redis-host
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: redis-port
+                  key: REDIS_PORT
+---
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-srv
+spec:
+  selector:
+    app: auth
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 80
+      targetPort: 80

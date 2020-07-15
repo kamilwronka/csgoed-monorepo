@@ -1,0 +1,21 @@
+name: deploy-manifests
+
+env:
+  KUBECONFIG: /home/deploy/config
+  KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "infrastructure/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo mkdir -p /home/deploy
+      - run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $KUBECONFIG
+      - run: kubectl apply -f infrastructure/k8s && kubectl apply -f infrastructure/k8s-prod
