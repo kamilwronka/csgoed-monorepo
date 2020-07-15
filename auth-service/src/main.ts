@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.use(helmet());
 
-  app.enableCors({ ...CORS_OPTIONS });
+  // app.enableCors({ ...CORS_OPTIONS });
   await app.listen(process.env.AUTH_SERVICE_PORT);
 }
 bootstrap();

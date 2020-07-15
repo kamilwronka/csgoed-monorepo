@@ -16,21 +16,11 @@ spec:
         - name: auth
           image: kamilwronka7/auth-service
           env:
-            - name: DB_PORT
+            - name: MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                  name: auth-db-port
-                  key: DB_PORT
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: auth-db-host
-                  key: DB_HOST
-            - name: DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: auth-db-name
-                  key: DB_NAME
+                  name: auth-db-mongodb-uri
+                  key: MONGODB_URI
             - name: PORT
               value: "80"
             - name: JWT_SECRET

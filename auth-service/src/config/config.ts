@@ -1,8 +1,6 @@
 import { BadRequestException } from '@nestjs/common';
 
-export const DB_HOST = process.env.AUTH_SERVICE_DB_HOST;
-export const DB_PORT = process.env.AUTH_SERVICE_DB_PORT;
-export const DB_NAME = process.env.AUTH_SERVICE_DB_NAME;
+export const MONGODB_URI = process.env.MONGODB_URI;
 export const REDIS_HOST = process.env.REDIS_HOST;
 export const REDIS_PORT = process.env.REDIS_PORT;
 
