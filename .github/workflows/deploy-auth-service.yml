@@ -24,4 +24,4 @@ jobs:
       - run: sudo mkdir -p /home/deploy
 #       - run: echo "{$KUBE_CONFIG_DATA}"
       - run: echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $KUBECONFIG
-#       - run: kubectl get all
+      - run: kubectl get all
