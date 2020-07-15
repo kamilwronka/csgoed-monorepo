@@ -12,8 +12,8 @@ spec:
         paths:
           - path: /api/auth-service/?(.*)
             backend:
-              serviceName: auth-service
-              servicePort: 3000
+              serviceName: auth-srv
+              servicePort: 80
 
 ---
 apiVersion: v1

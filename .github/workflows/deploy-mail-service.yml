@@ -8,8 +8,8 @@ on:
   push:
     branches:
       - master
-    # paths:
-    #   - "mail-service/**"
+    paths:
+      - "mail-service/**"
 jobs:
   build:
     runs-on: ubuntu-latest
