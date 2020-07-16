@@ -1,18 +1,24 @@
-kind: Ingress
-apiVersion: networking.k8s.io/v1beta1
+kind: IngressRoute
+apiVersion: traefik.containo.us/v1alpha1
 metadata:
   name: ingress-service
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.tls.certresolver: resolver
 
 spec:
-  rules:
-    - host: dev.api.kamilwronka.dev
-      http:
-        paths:
-          - path: /auth-service
-            backend:
-              serviceName: auth-srv
-              servicePort: 80
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - match: Host(`dev.api.kamilwronka.dev`) && PathPrefix(`/auth-service`)
+      kind: Rule
+      services:
+        - name: auth-srv
+          port: 80
+      middlewares:
+        - name: stripprefix
+          namespace: default
+  tls:
+    certResolver: resolver
+    domains:
+      - main: kamilwronka.dev
+        sans:
+          - dev.api.kamilwronka.dev
