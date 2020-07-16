@@ -4,6 +4,17 @@ metadata:
   name: traefik-ingress-controller
 
 ---
+# Redirect to https
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: test-redirectscheme
+spec:
+  redirectScheme:
+    scheme: websecure
+    permanent: true
+
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
@@ -25,12 +36,30 @@ spec:
       containers:
         - name: traefik
           image: traefik:v2.2
+          env:
+            - name: NAMECHEAP_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: namecheap-api-key
+                  key: NAMECHEAP_API_KEY
+            - name: NAMECHEAP_API_USER
+              valueFrom:
+                secretKeyRef:
+                  name: namecheap-api-user
+                  key: NAMECHEAP_API_USER
           args:
             - --log.level=DEBUG
             - --api
             - --api.insecure
             - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
             - --providers.kubernetesingress
+            - --certificatesresolvers.resolver.acme.dnschallenge.provider=namecheap
+            - --certificatesresolvers.resolver.acme.dnschallenge.delaybeforecheck=5
+            - --certificatesresolvers.resolver.acme.email=kamilwronka7@gmail.com
+            - --certificatesresolvers.resolver.acme.storage=acme.json
+            - --certificatesresolvers.resolver.acme.dnschallenge=true
+            - --certificatesresolvers.mydnschallenge.acme.dnschallenge.resolvers=8.8.8.8:53
           ports:
             - name: web
               containerPort: 80
@@ -51,6 +80,10 @@ spec:
       port: 80
       name: web
       targetPort: 80
+    - protocol: TCP
+      port: 443
+      name: websecure
+      targetPort: 443
     - protocol: TCP
       port: 8080
       name: admin

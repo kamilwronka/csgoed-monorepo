@@ -3,7 +3,9 @@ apiVersion: networking.k8s.io/v1beta1
 metadata:
   name: ingress-service
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: resolver
 
 spec:
   rules:
@@ -13,4 +15,8 @@ spec:
           - path: /auth-service
             backend:
               serviceName: auth-srv
+              servicePort: 80
+          - path: /
+            backend:
+              serviceName: test-srv
               servicePort: 80
