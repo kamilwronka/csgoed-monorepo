@@ -16,9 +16,15 @@ spec:
       middlewares:
         - name: stripprefix
           namespace: default
+    - match: Host(`dev.dashboard.kamilwronka.dev`)
+      kind: Rule
+      services:
+        - name: dashboard-srv
+          port: 80
   tls:
     certResolver: resolver
     domains:
       - main: kamilwronka.dev
         sans:
           - dev.api.kamilwronka.dev
+          - dev.dashboard.kamilwronka.dev
