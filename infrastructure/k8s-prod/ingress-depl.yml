@@ -16,7 +16,3 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 80
-          - path: /
-            backend:
-              serviceName: test-srv
-              servicePort: 80
