@@ -1,19 +1,19 @@
-
 FROM node:14.1.0-alpine
 
-ARG NODE_ENV
-ARG MAILGUN_HOST
-ARG MAILGUN_API_KEY
-ARG MAILGUN_DOMAIN
-ARG DOMAIN_NAME
-ARG MAIL_SERVICE_PORT
-ARG REDIS_PORT
-ARG REDIS_HOST
+ENV MAILGUN_HOST=changeme
+ENV MAILGUN_API_KEY=changeme
+ENV MAILGUN_DOMAIN=changeme
+ENV DOMAIN_NAME=changeme
+ENV REDIS_PORT=6379
+ENV REDIS_HOST=localhost
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
-COPY . ./
+ENV NODE_ENV=production
+
+COPY . .
+
 RUN yarn build
 RUN yarn copy-templates
 RUN yarn copy-translations

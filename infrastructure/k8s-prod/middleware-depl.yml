@@ -1,0 +1,27 @@
+---
+# Redirect to https
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirectscheme
+spec:
+  redirectScheme:
+    scheme: websecure
+    permanent: true
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /auth-service
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: compress
+spec:
+  compress: {}

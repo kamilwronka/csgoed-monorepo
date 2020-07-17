@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mail-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mail
+  template:
+    metadata:
+      labels:
+        app: mail
+    spec:
+      containers:
+        - name: mail
+          image: kamilwronka7/mail-service
+          env:
+            - name: MAILGUN_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun-host
+                  key: MAILGUN_HOST
+            - name: MAILGUN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun-api-key
+                  key: MAILGUN_API_KEY
+            - name: MAILGUN_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: mailgun-domain
+                  key: MAILGUN_DOMAIN
+            - name: DOMAIN_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: domain-name
+                  key: DOMAIN_NAME
+            - name: REDIS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: redis-host
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: redis-port
+                  key: REDIS_PORT

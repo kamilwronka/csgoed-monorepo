@@ -6,6 +6,7 @@ ENV REDIS_PORT=6379
 ENV REDIS_HOST=localhost
 ENV JWT_SECRET=changeme
 ENV REFRESH_SECRET=changeme2
+ENV IP_LOCALIZATION_API_KEY=changeme
 
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
@@ -18,4 +19,4 @@ RUN yarn build
 
 EXPOSE 80
 
-ENTRYPOINT [ "yarn", "start" ]
+ENTRYPOINT [ "yarn", "start:prod" ]
