@@ -1,0 +1,71 @@
+version: "3.6"
+
+services:
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command:
+      # - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - internal
+
+  redis:
+    image: redis:6.0.2
+    networks:
+      - internal
+
+  auth-service:
+    # logging:
+    #   driver: none
+    env_file:
+      - dev.env
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile.dev
+    networks:
+      - internal
+    ports:
+      - 4000:4000
+    volumes:
+      - "./auth-service:/usr/src/app"
+      # - "/usr/src/app/node_modules"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth-service.rule=Host(`localhost`) && PathPrefix(`/auth-service`)"
+      - "traefik.http.routers.auth-service.entrypoints=web"
+      - "traefik.http.middlewares.stripprefix.stripprefix.prefixes=/auth-service"
+      - "traefik.http.routers.auth-service.middlewares=stripprefix@docker"
+
+  users-db:
+    logging:
+      driver: none
+    image: "bitnami/mongodb:4.2-debian-10"
+    ports:
+      - 27017:27017
+    networks:
+      - internal
+
+  mail-service:
+    env_file:
+      - dev.env
+    build:
+      context: ./mail-service
+      dockerfile: Dockerfile.dev
+    networks:
+      - internal
+    volumes:
+      - "./mail-service:/usr/src/app"
+      # - "/usr/src/app/node_modules"
+
+networks:
+  internal:
+    external: false

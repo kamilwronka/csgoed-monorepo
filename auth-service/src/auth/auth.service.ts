@@ -27,7 +27,7 @@ export class AuthService {
       return user;
     }
 
-    return null;
+    throw new UnauthorizedException();
   }
 
   async login(user: any) {

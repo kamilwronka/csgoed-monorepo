@@ -8,7 +8,7 @@ spec:
     - websecure
     - web
   routes:
-    - match: Host(`dev.api.kamilwronka.dev`) && PathPrefix(`/auth-service`)
+    - match: Host(`api.shopn.io`) && PathPrefix(`/auth-service`)
       kind: Rule
       services:
         - name: auth-srv
@@ -18,7 +18,7 @@ spec:
           namespace: default
         - name: compress
           namespace: default
-    - match: Host(`dev.dashboard.kamilwronka.dev`)
+    - match: Host(`app.shopn.io`)
       kind: Rule
       services:
         - name: dashboard-srv
@@ -29,7 +29,7 @@ spec:
   tls:
     certResolver: resolver
     domains:
-      - main: kamilwronka.dev
+      - main: shopn.io
         sans:
-          - dev.api.kamilwronka.dev
-          - dev.dashboard.kamilwronka.dev
+          - api.shopn.io
+          - app.shopn.io

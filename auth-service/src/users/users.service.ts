@@ -123,18 +123,16 @@ export class UsersService {
       throw new BadRequestException();
     }
 
-    return { message: 'User has been activated.' };
+    return { message: 'common.activation.success' };
   }
 
   async resendActivationEmail(user: User) {
     if (user.activationData.lastAttempt + 60 * 1000 * 15 >= Date.now()) {
-      throw new BadRequestException('pages.accountActivationPage.timeoutError');
+      throw new BadRequestException('common.activation.timeout');
     }
 
     if (!user || user.activationData.activated) {
-      throw new BadRequestException(
-        'pages.accountActivationPage.accountAlreadyActivated',
-      );
+      throw new BadRequestException('common.activation.alreadyActivated');
     }
 
     const token = this.generateActivationToken(user._id);
@@ -156,5 +154,7 @@ export class UsersService {
         language: updatedUser.language,
       },
     });
+
+    return { message: 'common.activation.success' };
   }
 }

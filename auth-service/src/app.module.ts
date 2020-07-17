@@ -7,7 +7,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MONGODB_URI } from './config/config';
 
 @Module({
-  imports: [MongooseModule.forRoot(`${MONGODB_URI}`), AuthModule, UsersModule],
+  imports: [
+    MongooseModule.forRoot(`${MONGODB_URI}`, {
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    }),
+    AuthModule,
+    UsersModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
