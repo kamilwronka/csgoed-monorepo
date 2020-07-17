@@ -8,13 +8,9 @@ export const prod = process.env.NODE_ENV === 'production';
 const DEV_WHITELIST = [
   'http://localhost:3000',
   'http://192.168.8.130:3000',
-  'https://dev.dashboard.kamilwronka.dev',
+  'https://app.shopn.io',
 ];
-const PROD_WHITELIST = [
-  'http://localhost:3000',
-  'https://dashboard.csgoed.com',
-  'https://dev.dashboard.kamilwronka.dev',
-];
+const PROD_WHITELIST = ['http://localhost:3000', 'https://app.shopn.io'];
 
 export const CORS_OPTIONS = {
   origin: (origin, callback) => {

@@ -18,31 +18,11 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: CMS_DATABASE_HOST
+            - name: CMS_MONGODB_URI
               valueFrom:
                 secretKeyRef:
-                  name: cms-database-host
-                  key: CMS_DATABASE_HOST
-            - name: CMS_DATABASE_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: cms-database-port
-                  key: CMS_DATABASE_PORT
-            - name: CMS_DATABASE_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: cms-database-name
-                  key: CMS_DATABASE_NAME
-            - name: CMS_DATABASE_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: cms-database-username
-                  key: CMS_DATABASE_USERNAME
-            - name: CMS_DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: cms-database-password
-                  key: CMS_DATABASE_PASSWORD
+                  name: cms-mongodb-uri
+                  key: CMS_MONGODB_URI
 
 ---
 apiVersion: v1
