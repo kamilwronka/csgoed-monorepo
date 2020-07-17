@@ -107,7 +107,7 @@ export class UsersService {
 
   async activateUser(token) {
     const user = await this.userRepository.findOneAndUpdate(
-      { activationKey: token },
+      { activationToken: token },
       {
         $set: {
           activationData: {
