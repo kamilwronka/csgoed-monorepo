@@ -7,7 +7,8 @@ export const extractMetadataFromRequest = async (
   req: Request,
   fingerprint: string,
 ): Promise<AuthHistory> => {
-  let ip = req.headers || req.connection.remoteAddress;
+  console.log(req.headers);
+  let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   let device = req.headers['user-agent'];
 
   if (!prod) {
