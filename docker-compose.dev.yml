@@ -15,7 +15,7 @@ services:
     networks:
       - internal
     ports:
-      - 4000:4000
+      - 4000:80
     volumes:
       - "./auth-service:/usr/src/app"
       - "/usr/src/app/node_modules"
@@ -25,23 +25,21 @@ services:
       driver: none
     image: "bitnami/mongodb:4.2-debian-10"
     ports:
-      - 27018:27017
+      - 27017:27017
     networks:
       - internal
 
-  mail-service:
-    env_file:
-      - dev.env
-    build:
-      context: ./mail-service
-      dockerfile: Dockerfile.dev
-    networks:
-      - internal
-    ports:
-      - 4001:4001
-    volumes:
-      - "./mail-service:/usr/src/app"
-      - "/usr/src/app/node_modules"
+  # mail-service:
+  #   env_file:
+  #     - dev.env
+  #   build:
+  #     context: ./mail-service
+  #     dockerfile: Dockerfile.dev
+  #   networks:
+  #     - internal
+  #   volumes:
+  #     - "./mail-service:/usr/src/app"
+  #     # - "/usr/src/app/node_modules"
 
 networks:
   internal:
