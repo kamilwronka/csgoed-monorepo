@@ -25,3 +25,13 @@ metadata:
   name: compress
 spec:
   compress: {}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: ssl-redirect
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true

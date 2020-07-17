@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopn-cms-depl
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shopn-cms
+  template:
+    metadata:
+      labels:
+        app: shopn-cms
+    spec:
+      containers:
+        - name: shopn-cms
+          image: kamilwronka7/shopn-cms
+          ports:
+            - containerPort: 80
+          env:
+            - name: CMS_DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: cms-database-host
+                  key: CMS_DATABASE_HOST
+            - name: CMS_DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: cms-database-port
+                  key: CMS_DATABASE_PORT
+            - name: CMS_DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: cms-database-name
+                  key: CMS_DATABASE_NAME
+            - name: CMS_DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cms-database-username
+                  key: CMS_DATABASE_USERNAME
+            - name: CMS_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cms-database-password
+                  key: CMS_DATABASE_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopn-cms-srv
+spec:
+  selector:
+    app: shopn-cms
+  ports:
+    - name: shopn-cms
+      protocol: TCP
+      port: 80
+      targetPort: 80

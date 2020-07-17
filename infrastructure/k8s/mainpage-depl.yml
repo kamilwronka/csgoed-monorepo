@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopn-mainpage-depl
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: shopn-mainpage
+  template:
+    metadata:
+      labels:
+        app: shopn-mainpage
+    spec:
+      containers:
+        - name: shopn-mainpage
+          image: kamilwronka7/shopn-mainpage
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopn-mainpage-srv
+spec:
+  selector:
+    app: shopn-mainpage
+  ports:
+    - name: shopn-mainpage
+      protocol: TCP
+      port: 80
+      targetPort: 80

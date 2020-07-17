@@ -40,6 +40,7 @@ spec:
             - --entryPoints.websecure.forwardedHeaders.insecure
             - --entryPoints.web.forwardedHeaders.insecure
             - --log.level=DEBUG
+            - --api.insecure=true
             - --entrypoints.web.address=:80
             - --entrypoints.websecure.address=:443
             - --providers.kubernetescrd

@@ -18,6 +18,8 @@ spec:
           namespace: default
         - name: compress
           namespace: default
+        - name: ssl-redirect
+          namespace: default
     - match: Host(`app.shopn.io`)
       kind: Rule
       services:
@@ -26,6 +28,28 @@ spec:
       middlewares:
         - name: compress
           namespace: default
+        - name: ssl-redirect
+          namespace: default
+    - match: Host(`shopn.io`)
+      kind: Rule
+      services:
+        - name: shopn-mainpage-srv
+          port: 80
+      middlewares:
+        - name: compress
+          namespace: default
+        - name: ssl-redirect
+          namespace: default
+    - match: Host(`cms.shopn.io`)
+      kind: Rule
+      services:
+        - name: shopn-cms-srv
+          port: 80
+      middlewares:
+        - name: compress
+          namespace: default
+        - name: ssl-redirect
+          namespace: default
   tls:
     certResolver: resolver
     domains:
@@ -33,3 +57,4 @@ spec:
         sans:
           - api.shopn.io
           - app.shopn.io
+          - cms.shopn.io
