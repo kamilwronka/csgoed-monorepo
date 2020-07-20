@@ -11,7 +11,7 @@ export class AuthHistory {
   date: string;
 
   @Prop({ required: false })
-  localization: string;
+  localization: string | string[];
 
   @Prop({ required: false })
   device: {};

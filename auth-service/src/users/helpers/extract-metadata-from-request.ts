@@ -21,32 +21,11 @@ export const extractMetadataFromRequest = async (
     };
   }
 
-  try {
-    let localizationResponse = await axios.get(
-      'https://signals.api.auth0.com/v2.0/ip/' + ip,
-      {
-        headers: {
-          'x-auth-token': process.env.IP_LOCALIZATION_API_KEY,
-        },
-      },
-    );
-
-    let localization = localizationResponse.data['geo'].country;
-
-    return {
-      ip,
-      localization,
-      device,
-      date: new Date().toISOString(),
-      fingerprint,
-    };
-  } catch (error) {
-    return {
-      ip: 'unknown',
-      localization: 'unknown',
-      device,
-      date: new Date().toISOString(),
-      fingerprint,
-    };
-  }
+  return {
+    ip,
+    localization: req.headers['cf-ipcountry'],
+    device,
+    date: new Date().toISOString(),
+    fingerprint,
+  };
 };
